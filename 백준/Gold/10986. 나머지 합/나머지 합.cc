@@ -3,7 +3,7 @@
 using namespace std;
 
 int number[1000001];
-long long remainders[1001];
+long remainders[1001];
 
 int main(void)
 {
