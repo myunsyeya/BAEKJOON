@@ -2,7 +2,7 @@
 
 using namespace std;
 
-long long number[1000001];
+int number[1000001];
 long long remainders[1001];
 
 int main(void)
