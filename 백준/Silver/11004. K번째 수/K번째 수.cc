@@ -1,93 +1,70 @@
 #include <iostream>
-#include <iterator>
+#include <vector>
 
 using namespace std;
-
-inline void _swap(int& num1, int& num2)
-{
-	int		temp;
-	temp = num1;
-	num1 = num2;
-	num2 = temp;
-}
-
-inline void SortTriad(int arr[], int a, int b, int c)
-{
-	if (arr[b] < arr[a]) _swap(arr[b], arr[a]);
-	if (arr[c] < arr[b]) _swap(arr[c], arr[b]);
-	if (arr[b] < arr[a]) _swap(arr[b], arr[a]);
-}
-void InsertionSort(int arr[], int left, int right)
-{
-	int		index;
-	for (int i = left + 1; i < right + 1; i++)
-	{
-		index = i;
-		for (int j = i; j >= left; j--)
-		{
-			if (arr[index] < arr[j])
-			{
-				_swap(arr[index], arr[j]);
-				index--;
-			}
-		}
-	}
-}
-void QuickSort(int arr[], int left, int right)
-{
-	if (right - left < 9)
-	{
-		/* 퀵정렬의 구조 상 매우 적은 요소의 정렬은 연산이 느립니다. */
-		InsertionSort(arr, left, right);
-		return;
-	}
-	int		pivot;
-	int		pleft;
-	int		pright;
-
-	pleft = left;
-	pright = right;
-	SortTriad(arr, left, (left + right) / 2, right);
-	pivot = arr[(left + right) / 2];
-	_swap(arr[(left + right) / 2], arr[right - 1]);
-	pleft	+= 1;
-	pright	-= 2;
-	do
-	{
-		while (arr[pleft] < pivot) pleft++;
-		while (arr[pright] > pivot) pright--;
-		if (pleft <= pright)
-		{
-			_swap(arr[pleft], arr[pright]);
-			pleft++;
-			pright--;
-		}
-	} while (pleft <= pright);
-	if (pright - left > right - pleft)
-	{
-		_swap(left, pleft);
-		_swap(right, pright);
-	}
-	if (left < pright) QuickSort(arr, left, pright);
-	if (pleft < right) QuickSort(arr, pleft, right);
-}
+/* Do it! 알고리즘 코딩테스트 C++, 김종관, p.128, 2022 */
+/* 셀프 풀이와 비교하기 위한 더미 제출 */
+void quickSort(vector<int>& A, int S, int E, int K);
+int partition(vector<int>& A, int i, int j);
+void swap(vector<int>& A, int i, int j);
 
 int main(void)
 {
 	ios::sync_with_stdio(false);
 	cout.tie(NULL); cin.tie(NULL);
 
-	int		n;
-	int		k;
-	int*	a;
-	
-	cin >> n >> k;
-	a = new int[n];
-	copy_n(istream_iterator<int>(cin), n, a);
+	int N, K;
+	cin >> N >> K;
+	vector<int> A(N, 0);
 
-	QuickSort(a, 0, n - 1);
-
-	cout << a[k - 1];
-	delete[] a;
+	for (int i = 0; i < N; i++)
+		cin >> A[i];
+	quickSort(A, 0, N - 1, K - 1);
+	cout << A[K - 1];
 	return 0;
+}
+
+void quickSort(vector<int>& A, int S, int E, int K)
+{
+	int pivot = partition(A, S, E);
+	if (pivot == K)
+		return;
+	else if (K < pivot)
+		quickSort(A, S, pivot - 1, K);
+	else
+		quickSort(A, pivot + 1, E, K);
+}
+
+int partition(vector<int>& A, int S, int E)
+{
+	if (S + 1 == E)
+	{
+		if (A[S] > A[E])
+		{
+			swap(A, S, E);
+		}
+		return E;
+	}
+
+	int M = (S + E) / 2;
+	swap(A, S, M);
+	int pivot = A[S];
+	int i = S + 1, j = E;
+
+	while (i <= j)
+	{
+		while (pivot < A[j] && j > 0) j--;
+		while (pivot > A[i] && i < A.size() - 1) i++;
+		if (i <= j) swap(A, i++, j--);
+	}
+	A[S] = A[j];
+	A[j] = pivot;
+	return j;
+}
+
+void swap(vector<int>& A, int i, int j)
+{
+	int temp = A[i];
+	A[i] = A[j];
+	A[j] = temp;
 }
