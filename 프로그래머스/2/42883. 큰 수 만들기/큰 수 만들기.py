@@ -6,8 +6,6 @@ def solution(number, k):
         while stack and k and stack[-1] < num:
             stack.pop()
             k -= 1
-            if not k:
-                break
         stack.append(num)
     while stack and k:
         stack.pop()
