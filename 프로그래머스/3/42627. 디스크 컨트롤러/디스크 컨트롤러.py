@@ -9,13 +9,13 @@ def solution(jobs):
     
     # 일단, 요청시간 정렬
     jobs.sort()
-    while len(jobs):
+    while jobs:
         # 현 시점에서 가능한 job 중 SJF 채택
         for job in jobs:
             if start < job[0] <= now:
                 # Shortest Job First
                 heapq.heappush(pq, [job[1], job[0]])
-        if len(pq):
+        if pq:
             # 작업 시작 시간 갱신
             start = now
             job = heapq.heappop(pq)
