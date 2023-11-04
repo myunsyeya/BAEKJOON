@@ -1,8 +1,7 @@
 from collections import deque
 def solution(priorities, location):
     answer = 0
-    deq = deque()
-    deq.extend(priorities)
+    deq = deque(priorities)
     
     while deq:
         now = deq.popleft()
@@ -15,5 +14,4 @@ def solution(priorities, location):
             if not location:
                 break
         location -= 1
-                
     return answer
