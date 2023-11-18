@@ -5,6 +5,7 @@ def solution(numbers):
     answer = 0
     articles = []
     prime = prime_list(10**len(numbers))
+    
     for article in [list(permutations(numbers,i)) for i in range(1,7)]:
         for paper in article:
             articles.append(int(''.join(paper)))
