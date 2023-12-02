@@ -1,4 +1,5 @@
 # 최소거리는 bfs 문제
+# 델타탐색!
 from collections import deque
 def solution(maps):
     answer = 0
