@@ -1,19 +1,21 @@
 # 최소거리는 bfs 문제
-# 효율성을 위해서는 -1 판별이 먼저 필요하겠네..
 from collections import deque
 def solution(maps):
     answer = 0
     dx = [1, -1, 0, 0]
     dy = [0, 0, 1, -1]
+    goal_x = len(maps[0]) - 1
+    goal_y = len(maps) - 1
     queue = deque()
     visited = [[False for j in i] for i in maps]
     visited[0][0] = True
+    
     def bfs():
         queue.append([0,0,1])
         while queue:
             cur = queue.popleft()
-            if visited[len(maps)-1][len(maps[0])-1]:
-                if cur[0] == len(maps[0])-1 and cur[1] == len(maps)-1:
+            if visited[goal_y][goal_x]:
+                if cur[0] == goal_x and cur[1] == goal_y:
                     return cur[2]
                 else:
                     continue
