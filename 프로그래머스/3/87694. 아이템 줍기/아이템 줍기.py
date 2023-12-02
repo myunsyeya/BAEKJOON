@@ -6,9 +6,10 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
     queue = deque([[(characterX, characterY), 0]])
     dx = [1, 0, -1, 0]
     dy = [0, 1, 0, -1]
+    edge = []
+    
     # 외곽선을 캐치하기
     # 사각형의 길이는 모두 정수형, 모든 측정 길이는 단위 길이 1x1
-    edge = []
     for rec_x1, rec_y1, rec_x2, rec_y2 in rectangle:
         for edge_x1 in range(rec_x2 - rec_x1):
             edge.append((rec_x1+edge_x1, rec_y1, rec_x1+edge_x1+1, rec_y1))
