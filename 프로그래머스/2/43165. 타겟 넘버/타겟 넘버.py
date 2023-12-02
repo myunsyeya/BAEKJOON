@@ -1,3 +1,4 @@
+# 백트래킹도 존재하겠지만.. 나이브하게는..
 answer = 0
 def solution(numbers, target):
     global answer
