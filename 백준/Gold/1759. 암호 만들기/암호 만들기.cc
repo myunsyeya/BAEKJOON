@@ -1,33 +1,29 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <set>
 
 using namespace std;
 
 #define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
 
-int L, C;
+bool MO[30];
 vector<char> hint;
-set<string> ans;
+int L, C;
 
-void recur(int i, string &passwd)
+
+void recur(int i, int mo, int ja, string &passwd)
 {
-    if (passwd.size() == L)
+    if (mo + ja == L)
     {
-        int check = 0;
-        for (int i = 0; i < L; i++)
-            check += passwd[i] == 'a' || passwd[i] == 'e'
-            || passwd[i] == 'i' || passwd[i] == 'o' || passwd[i] == 'u';
-        if (!check || L - check < 2) return;
-        ans.insert(passwd);
+        if (mo >= 1 && ja >= 2) cout << passwd << '\n';
+        return;
     }
     if (i == C) return;
-    if (passwd.size() + C - i < L) return;
     passwd.push_back(hint[i]);
-    recur(i + 1, passwd);
+    if (MO[hint[i]-'a']) recur(i + 1, mo+1, ja, passwd);
+    else recur(i+1, mo, ja+1, passwd);
     passwd.pop_back();
-    recur(i + 1, passwd);
+    recur(i + 1, mo, ja, passwd);
 }
 
 int main()
@@ -38,7 +34,7 @@ int main()
     hint.resize(C);
     for (char& c : hint) cin >> c;
     sort(hint.begin(), hint.end());
-    recur(0, s);
-    for (string s : ans) cout << s << '\n';
+    MO['a' - 'a'] = MO['e' - 'a'] = MO['i' - 'a'] = MO['o' - 'a'] = MO['u' - 'a'] = true;
+    recur(0, 0, 0, s);
     return 0;
 }
