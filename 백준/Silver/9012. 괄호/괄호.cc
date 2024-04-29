@@ -1,34 +1,32 @@
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <vector>
 #include <stack>
+
 using namespace std;
 
-int main(void)
+#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cin.tie(nullptr); } while(0)
+
+void solve()
 {
-    int n;
-    char PS[51];
-    stack<bool> s;
-    scanf("%d", &n);
-    while (n--) {
-        scanf("%s", PS);
-        for (size_t i = 0; i < strlen(PS); i++) {
-            if (PS[i] == '(')
-                s.push(true);
-            else {
-                if (!s.empty())
-                    s.pop();
-                else {
-                    s.push(false);
-                    break;
-                }
-            }
-        }
-        if (!s.empty())
-            printf("NO\n");
-        else
-            printf("YES\n");
-        while (!s.empty())
-            s.pop();
+    string S;
+    cin >> S;
+    int n = S.size();
+    stack<int> stk;
+    for (int i = 0; i < n; i++) {
+        if (S[i] == '(') stk.push(i);
+        else if (stk.empty()) { cout << "NO\n"; return; }
+        else stk.pop();   
     }
+    if (!stk.empty()) { cout << "NO\n"; return; }
+    cout << "YES\n";
+}
+
+int main()
+{
+    fio();
+    int T;
+    cin >> T;
+    while (T--) solve();
+
     return 0;
 }
