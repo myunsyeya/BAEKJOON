@@ -10,20 +10,20 @@ int main(void)
 	cout.tie(NULL); cin.tie(NULL);
 
 	int n, temp;
-	queue<int> myqueue;
+	queue<int> q;
 
 	cin >> n;
 	for (int i = 1; i <= n; i++)
-		myqueue.push(i);
+		q.push(i);
 
-	while (myqueue.size() != 1)
+	while (q.size() != 1)
 	{
-		myqueue.pop();
-		temp = myqueue.front();
-		myqueue.pop();
-		myqueue.push(temp);
+		q.pop();
+		temp = q.front();
+		q.pop();
+		q.push(temp);
 	}
 
-	cout << myqueue.front() << endl;
+	cout << q.front() << '\n';
 	return 0;
 }
