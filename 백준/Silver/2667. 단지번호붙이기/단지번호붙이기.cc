@@ -18,6 +18,7 @@ int main()
 {
     fio();
     int n; cin >> n;
+    queue<tuple<int,int>> q;    
     for (int i = 1; i <= n; i++) {
         string bits; cin >> bits;
         for (int j = 1; j <= n; j++) map[i][j] = bits[j-1] - '0'; 
@@ -28,7 +29,6 @@ int main()
             if (!map[i][j] || visited[i][j]) continue;
             /* bfs */
             int cnt = 1;
-            queue<tuple<int,int>> q;
             q.push(make_tuple(i, j));
             visited[i][j] = 1;
 
