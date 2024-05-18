@@ -1,0 +1,1 @@
+print(sum([int(_)*int(_) for _ in input().split()])%10)
