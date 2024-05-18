@@ -1,9 +1,7 @@
 import sys
+input = sys.stdin.readline
 
-def finput():
-    return sys.stdin.readline().rstrip()
-
-T = int(finput())
+T = int(input())
 for _ in range(T):
-    A, B = map(int, finput().split())
+    A, B = map(int, input().split())
     print(A+B)
