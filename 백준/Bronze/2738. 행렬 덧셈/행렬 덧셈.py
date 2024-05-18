@@ -1,16 +1,9 @@
-def int_input():
-    return map(int, input().split())
+import sys
+input = sys.stdin.readline
 
-def make_matrix(N):
-    matrix_list = list()
-    for _ in range(N):
-        arr = list(int_input())
-        matrix_list.append(arr)
-    return matrix_list
-
-N, M = int_input()
-X = make_matrix(N)
-Y = make_matrix(N)
+N, M = map(int, input().split())
+X = [[int(x_i) for x_i in input().split()] for _ in range(N)]
+Y = [[int(x_i) for x_i in input().split()] for _ in range(N)]
 S = [[x_i + y_i for x_i, y_i in zip(x, y)] for x, y in zip(X,Y)]
 
 for row in S:
