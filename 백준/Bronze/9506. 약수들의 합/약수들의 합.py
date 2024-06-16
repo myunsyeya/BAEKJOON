@@ -1,16 +1,11 @@
 def list_factors(n):
-    left, right = [1], []
-    for i in range(2, int(n**0.5+1)):
-        if n % i == 0:
-            left.append(i) or (n != i*i) and right.append(n//i)
-    return left + right[::-1]
+    # if n % 2 == 0, then factors_sup is n/2
+    return [i for i in range(1, n//2+1) if n % i == 0]
 
 def vsprint(n, factors):
     print(f"{n} = {' + '.join(map(str, factors))}")
 
-while True:
-    N = int(input())
-    if N == -1: break
-    if N == sum(factors := list_factors(N)):
-        vsprint(N, factors)
-    else: print(N, "is NOT perfect.")    
+for n in [int(i) for i in [*open(0)][:-1]]:
+    if n==sum(factors := list_factors(n)):
+        vsprint(n, factors)
+    else: print(n, 'is NOT perfect.')
