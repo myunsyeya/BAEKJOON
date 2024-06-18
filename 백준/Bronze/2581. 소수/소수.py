@@ -1,15 +1,20 @@
 M, N = int(input()), int(input())
+spf = [0] * (N+1)
 prime = []
 
-for i in range(M, N+1):
-    for j in range(2, i):
-        if i % j == 0:
-            break
-    else: prime.append(i)
-if 1 in prime: prime.pop(0)
+# euler's sieve
+for i in range(2, N+1):
+    if not spf[i]:
+        prime.append(i)
+        spf[i] = i
+    for p in prime:
+        if i*p > N: break
+        spf[i*p] = p
+        if i % p == 0: break
 
-if prime:
-    print(sum(prime))
-    print(prime[0])
+answer = [i for i in range(M, N+1) if i in prime]
+
+if answer:
+    print(f'{sum(answer)}\n{answer[0]}')
 else:
     print(-1)
