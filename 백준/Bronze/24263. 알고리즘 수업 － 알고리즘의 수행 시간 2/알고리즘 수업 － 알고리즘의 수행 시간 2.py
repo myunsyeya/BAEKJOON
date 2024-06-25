@@ -1,2 +1,1 @@
-print(input())
-print(1)
+print(input(),1)
