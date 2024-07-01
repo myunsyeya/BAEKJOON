@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#define fio() cin.tie(0), ios_base::sync_with_stdio(0)
 #define __ABS(x) (((x) < 0) ? -(x) : (x))
 
 using namespace std;
@@ -19,12 +19,8 @@ int main()
 
     cin >> n;
     d1 = e = d2 = 1 << 30;
-    while (n--)
-    {
-        int x;
-        cin >> x;
-        toset.push_back(x);
-    }
+    toset = vector<ll>(n);
+    for (ll& x : toset) cin >> x;
     sort(toset.begin(), toset.end());
     for (int i = 0; i < toset.size(); i++)
     {
