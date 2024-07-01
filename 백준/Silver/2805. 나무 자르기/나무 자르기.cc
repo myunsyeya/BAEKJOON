@@ -1,43 +1,35 @@
-#include <cstdio>
+#include <iostream>
+#include <vector>
 #include <algorithm>
+
 using namespace std;
-#define ReLU(x) (x < 0) ? 0: x
 
-typedef long long ll;
-int integer[1000000];
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
-int binarySearch(int key, int N)
+int main()
 {
-    ll left = 0;
-    ll right = 0;
-    ll sum = 0;
-    for (int i = 0; i < N; i++)
-        if (right < integer[i])
-            right = integer[i];
-    do {
-        ll mid = left + (right - left) / 2;
-        for (int i = 0; i < N; i++)
-            sum += ReLU(integer[i] - mid);
-        if (sum <= key) {
-            right = mid;
-            if(sum == key)
-                return mid;
+    fio();
+    int N, M; cin >> N >> M;
+    vector<int> wood(N);
+    for (int& w : wood) cin >> w;
+
+    int le = 0;
+    int ri = (int)1e9;
+    int h = 0;
+
+    while (le <= ri) {
+        int mid = (le + ri) >> 1;
+        long long sum = 0;
+        for (const int& w : wood) sum += (w-mid > 0) ? w-mid : 0;
+        if (sum >= M) {
+            h = max(h, mid);
+            le = mid + 1;
+        } else {
+            ri = mid - 1;
         }
-        else
-            left = mid + 1;
-        sum = 0;
-    } while (left < right);
-    return right - 1;
-}
+    }
+    
+    cout << h;
 
-int main(void)
-{
-    int N, M;
-    scanf(" %d %d", &N, &M);
-    for (int i = 0; i < N; i++)
-        scanf(" %d", integer + i);
-    sort(integer, integer + N);
-    printf("%d\n", binarySearch(M, N));
-    printf("\n");
     return 0;
 }
