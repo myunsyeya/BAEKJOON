@@ -1,35 +1,24 @@
 #include <iostream>
-#include <iterator>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-vector<pair<int,int>> v;
-
-ostream& operator<<(ostream& o, const pair<int,int>& p)
-{
-    return o << p.first << " " << p.second;
-}
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
-
-    int N;
-    int x, y;
+    fio();
+    int N; 
     cin >> N;
-    while (N--) {
-        cin >> x >> y;
-        v.push_back({ x, y });
-    }
-    sort(v.begin(), v.end(), [](pair<int, int> a, pair<int, int> b) {
-        if (a.second == b.second) return a.first < b.first;
-        return a.second < b.second;
-        });
-    for_each(v.begin(), v.end(), [](const pair<int, int>& p) {
-        cout << p << "\n";
-        });
+    vector<pair<int, int>> I(N);
+    for (auto &i : I) cin >> i.first >> i.second;
+
+    sort(I.begin(), I.end(), [] (const auto &a, const auto &b) {
+        return a.second == b.second ? a.first < b.first : a.second < b.second;
+    });
+
+    for (const auto &i : I) cout << i.first << ' ' << i.second << '\n';
+
     return 0;
 }
