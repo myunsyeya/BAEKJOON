@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#define fio() cin.tie(0), ios_base::sync_with_stdio(0)
 #define __ABS(x) ( ((x) < 0) ? -(x) : (x) )
 
 using namespace std;
@@ -16,15 +16,12 @@ int main()
 
     cin >> n;
     d = e = 1000000000;
-    while (n--) {
-        int x;
-        cin >> x;
-        toset.push_back(x);
-    }
-    for (int i = 0; i < toset.size(); i++) {
+    toset = vector<int>(n);
+    for (int& x : toset) cin >> x;
+    for (int i = 0; i < n; i++) {
         int left, right;
         left = i + 1;
-        right = toset.size() - 1;
+        right = n - 1;
         while (left <= right) {
             int mid = (left + right) >> 1;
             int mix = toset[i] + toset[mid];
