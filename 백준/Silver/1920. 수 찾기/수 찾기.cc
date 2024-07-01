@@ -4,26 +4,24 @@
 
 using namespace std;
 
-vector<int> n;
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
-
-    int N, M, x, m;
+    fio();
+    int N, M;
     cin >> N;
-    while (N--) {
-        cin >> x;
-        n.push_back(x);
-    }
-    sort(n.begin(), n.end());
+    vector<int> A(N);
+    for (int& a : A) cin >> a;
     cin >> M;
-    while (M--) {
-        cin >> m;
-        auto x = (lower_bound(n.begin(), n.end(), m));
-        cout <<  ((x != n.end()) && (m == *x)) << '\n';
-    }
+    vector<int> X(M);
+    for (int& x : X) cin >> x;
 
+    sort(A.begin(), A.end());
+    for (const int& x : X) {
+        auto l = lower_bound(A.begin(), A.end(), x);
+        cout << (l != A.end() && *l == x) << '\n';
+
+    }
     return 0;
 }
