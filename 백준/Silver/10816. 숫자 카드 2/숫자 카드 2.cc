@@ -4,47 +4,24 @@
 
 using namespace std;
 
-vector<int> n;
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
-
-    int N, M, x, m;
+    fio();
+    int N, M;
     cin >> N;
-    while (N--) {
-        cin >> x;
-        n.push_back(x);
-    }
-    sort(n.begin(), n.end());
+    vector<int> A(N);
+    for (int& a : A) cin >> a;
     cin >> M;
-    while (M--) {
-        cin >> m;
-        int le, ri, ub, lb;
-        le = 0;
-        ri = n.size() - 1;
-        ub = n.size();
-        while (le <= ri) {
-            int md = (le + ri) >> 1;
-            if (n[md] > m)
-            {
-                ri = md - 1;
-                ub = md;
-            } else le = md + 1;
-        }
-        le = 0, ri = n.size()-1;
-        lb = n.size();
-        while (le <= ri) {
-            int md = (le + ri) >> 1;
-            if (n[md] >= m)
-            {
-                ri = md - 1;
-                lb = md;
-            } else le = md + 1;
-        }
-        cout << ub - lb << ' ';
-    }
+    vector<int> X(M);
+    for (int& x : X) cin >> x;
 
+    sort(A.begin(), A.end());
+    for (const int& x : X) {
+        auto lb = lower_bound(A.begin(), A.end(), x);
+        auto ub = upper_bound(A.begin(), A.end(), x);
+        cout << ((lb != A.end()) ? ub-lb : 0) << ' ';
+    }
     return 0;
 }
