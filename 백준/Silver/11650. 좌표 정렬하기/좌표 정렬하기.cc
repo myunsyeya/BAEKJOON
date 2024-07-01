@@ -24,10 +24,7 @@ int main()
         cin >> x >> y;
         v.push_back({ x, y });
     }
-    sort(v.begin(), v.end(), [](pair<int, int> a, pair<int, int> b) {
-        if (a.first == b.first) return a.second < b.second;
-        return a.first < b.first;
-        });
+    sort(v.begin(), v.end());
     for_each(v.begin(), v.end(), [](const pair<int, int>& p) {
         cout << p << "\n";
         });
