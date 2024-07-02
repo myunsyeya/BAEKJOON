@@ -1,26 +1,28 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
 typedef long long ll;
 
-ll __gcd(ll a, ll b) {
-	if (!b) return a;
-	return __gcd(b, a % b);
+ll gcd(ll a, ll b) 
+{
+    if (!b) return a;
+    return gcd(b, a%b);
 }
 
 int main()
 {
     fio();
-    ll n, k;
-    cin >> n >> k;
-    ll gcd = __gcd(n, k);
-    n /= gcd; k /= gcd;
-    if (n % k == 0) cout << 0;
-    else cout << ((k < (n+1)/2) ? (n*(k-1)) : (n*(n-k-1)));
+    ll N, K; cin >> N >> K;
+    ll _gcd = gcd(N, K);
+
+    N /= _gcd; K /= _gcd;
+    if (N % K == 0) cout << 0;
+    else cout << ((K < N-K) ? N*(K-1) : N*(N-K-1));
 
     return 0;
 }
