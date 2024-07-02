@@ -1,14 +1,10 @@
-// Example program
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
-
 using namespace std;
 
-vector<int> N;
-
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 #define ABS(x) ( ((x) > 0) ? (x) : (-(x)) )
 // make sure x belong to real number data type.
 #define round(x) ( ((x) > 0) ? ((int)(ABS(x) + 0.5)) : (-((int)(ABS(x) + 0.5))) )
@@ -16,53 +12,27 @@ vector<int> N;
 int main()
 {
     fio();
-    int n;
-    cin >> n;
-    N.resize(n);
-    for (int& x: N) cin >> x;
-    
-    sort(N.begin(), N.end());
-    double sum = 0;
-    for (int x : N) sum += x;
-    int bias = 4000;
-    int freq[8192] = { 0 };
-    for (int x : N) freq[bias + x]++;
-    
-    int mean = round(sum/n);
-    int median = N[n/2];
-    int mode = 0;
-    int max = 0;
-    int dup = 0;
-    for (int i = -4000; i <= 4000; i++) {
-        if (freq[bias + i] > max)
-        {
-            max = freq[bias + i]; 
-            mode = i;
-            dup = 0;
-        }
-        if (freq[bias + i] == max)
-        {
-            max = freq[bias + i]; 
-            mode = i;
-            dup++;
-        }
+    int N; cin >> N;
+    vector<int> zahlen(N);
+    for (int& z : zahlen) cin >> z;
+    vector<int> mode;
+    int prev, now;
+    double sum;
+
+    sort(zahlen.begin(), zahlen.end());
+    sum = zahlen[0];
+    mode.push_back(zahlen[0]);
+    prev = now = 0;
+    for (int i = 1; i < N; i++) {
+        if (zahlen[i-1] == zahlen[i]) now++;
+        else now = 0;
+        if (now == prev) mode.push_back(zahlen[i]);
+        if (now > prev) { prev = now; mode.clear(); mode.push_back(zahlen[i]); }
+        sum += zahlen[i];
     }
-    if (dup > 1)
-    {
-        dup = 0;
-        for (int i = -4000; i <= 4000; i++) {
-            if (freq[bias + i] == max)
-            {
-                if (dup) 
-                {
-                    mode = i; 
-                    break;
-                }
-                dup++;
-            }
-        }
-    }
-    int range = N[n - 1] - N[0];
-    cout << mean << '\n' << median << '\n' << mode << '\n' << range;
+    cout << round(sum/N) << '\n';
+    cout << zahlen[N/2] << '\n';
+    cout << ((mode.size()>1) ? mode[1]: mode[0]) << '\n';
+    cout << (zahlen[N-1]-zahlen[0]);
     return 0;
 }
