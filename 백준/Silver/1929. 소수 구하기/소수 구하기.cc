@@ -1,32 +1,36 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+std::vector<int> sieve_of_eratosthenes(int M, int N) {
+    std::vector<bool> is_prime(N + 1, true);
+    is_prime[0] = is_prime[1] = false;
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
-#define MAX ( 1 << 21 )
-
-int not_prime[MAX];
-vector<int> prime;
-
-void sieve()
-{
-    not_prime[1] = 1;
-    for (int i = 2; i*i < MAX; i++) {
-        if (not_prime[i]) continue;
-        for (int j = i*i; j < MAX; j+=i) not_prime[j] = 1;
+    for (int p = 2; p * p <= N; ++p) {
+        if (is_prime[p]) {
+            for (int multiple = p * p; multiple <= N; multiple += p) {
+                is_prime[multiple] = false;
+            }
+        }
     }
+
+    std::vector<int> primes;
+    for (int num = M; num <= N; ++num) {
+        if (is_prime[num]) {
+            primes.push_back(num);
+        }
+    }
+    return primes;
 }
 
-int main()
-{
-    fio();
-    sieve();
-    int m, n;
-    cin >> m >> n;
-    for (int i = m; i <= n; i++) {
-        if(not_prime[i]) continue;
-        cout << i << '\n';
+int main() {
+    int M, N;
+    std::cin >> M >> N;
+
+    std::vector<int> primes = sieve_of_eratosthenes(M, N);
+
+    for (int prime : primes) {
+        std::cout << prime << "\n";
     }
+
     return 0;
 }
