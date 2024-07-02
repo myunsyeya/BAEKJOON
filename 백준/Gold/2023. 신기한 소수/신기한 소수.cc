@@ -6,8 +6,6 @@ using namespace std;
 
 #define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
-typedef long long ll;
-
 bool isPrime(int n) 
 {
     if (n == 1) return false;
@@ -17,7 +15,7 @@ bool isPrime(int n)
     return true;
 }
 
-ll pow(int n, int r) 
+int pow(int n, int r) 
 {
     if (!r) return 1;
     return n*pow(n, r-1);
