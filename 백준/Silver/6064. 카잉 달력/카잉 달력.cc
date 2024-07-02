@@ -1,42 +1,29 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
-int gcd(int a, int b)
+int gcd(int a, int b) 
 {
-    if (b == 0) return a;
+    if (!b) return a;
     return gcd(b, a%b);
 }
 
 int main()
 {
-    int t;
-    cin >> t;
-    while(t--) {
-        int M, N, x, y;
-        // K mod M = x - 1
-        // K mod N = y - 1
-        // x` + q1*M = K
-        // y` + q2*N = K
-        // 어찌됐든 (M, N)은 lcm(M, N) = M*N*gcd(M,N)
-        // (x` - y` + q1*M)/N = q2
-        cin >> M >> N >> x >> y;
-        x--; y--;
-        int end = M*N/gcd(M,N); // lcm(M,N)
-        int q1=0, q2=-1, k;
-        for (; q1*M + x <= end; q1++)
-            if ((x - y + q1*M) % N == 0)
-            {
-                q2 = (x - y + q1*M)/N;
-                break;
-            }
-        if (q2==-1) k = -1;
-        else k = x + 1 + q1*M;
-        if (x == y) k = x + 1;
+    fio();
+    int T; cin >> T;
+    while (T--) {
+        int M, N, x, y; cin >> M >> N >> x >> y;
+        int k = -1;
+        // (k-1) % M + 1 = x -> k = qM + x
+        // (k-1) % N + 1 = y -> k = pN + y
+        for (int i = x; i <= M*N; i+=M) {
+            if ((i-1) % N + 1 == y) { k = i; break; }
+        }
         cout << k << '\n';
     }
 
