@@ -12,10 +12,7 @@ int main()
     int N; cin >> N;
     int count = 0;
     
-    for (int i = 5; i <= N; i+=5) {
-        int x = i;
-        while (x % 5 == 0) { x /= 5; count++; }
-    }
+    for (int i = 5; i <= N; i*=5) count += N/i;
     cout << count;
     return 0;
 }
