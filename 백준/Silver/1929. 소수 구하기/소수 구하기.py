@@ -1,14 +1,16 @@
-from bisect import bisect_left
-M, N = map(int, input().split())
-prime, spf = [], [0]*(N+1)
-# euler's sieve
-for i in range(2, N+1):
-    if not spf[i]:
-        prime.append(i)
-    for p in prime:
-        if i*p > N: break
-        spf[i*p] = i
-        if not i % p: break
+def sieve_of_eratosthenes(M, N):
+    sieve = [True] * (N + 1)
+    sieve[0] = sieve[1] = False
+    
+    for p in range(2, int(N**0.5) + 1):
+        if sieve[p]:
+            for multiple in range(p * p, N + 1, p):
+                sieve[multiple] = False
+    
+    primes = [num for num in range(M, N + 1) if sieve[num]]
+    return primes
 
-for i in range(bisect_left(prime, M), len(prime)):
-    print(prime[i])
+# Example usage
+M, N = map(int, input().split())
+for p in sieve_of_eratosthenes(M, N):
+    print(p)
