@@ -1,28 +1,21 @@
-// Example program
 #include <iostream>
 #include <vector>
-
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#include <algorithm>
 
 using namespace std;
+
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
 int main()
 {
     fio();
-    int n, two, five;
-    cin >> n;
-    two = five = 0;
+    int N; cin >> N;
+    int count = 0;
     
-    for (int i = 2; i <= n; i++) {
+    for (int i = 5; i <= N; i+=5) {
         int x = i;
-        while (x % 2 == 0) {
-            x /= 2; two++;   
-        }
-        while (x % 5 == 0) {
-            x /= 5; five++;
-        }
+        while (x % 5 == 0) { x /= 5; count++; }
     }
-    cout << ((two < five) ? two: five);
-    
+    cout << count;
     return 0;
 }
