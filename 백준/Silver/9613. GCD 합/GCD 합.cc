@@ -1,45 +1,34 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-#define fio() do { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); } while(0)
+#define fio() ios_base::sync_with_stdio(0); cin.tie(0)
 
-typedef long long ll;
+int num[101];
 
-int __gcd(int a, int b) {
-	if (!b) return a;
-	return __gcd(b, a % b);
+int gcd(int a, int b) 
+{
+    if (!b) return a;
+    return gcd(b, a%b);
 }
 
 int main()
 {
-	fio();
-	int t;
-	cin >> t;
-	while (t--) {
-		int n;
-        ll sum;
-		cin >> n;
-		vector<bool> comb(n, false);
-		vector<int> num(n), gcd;
-		comb[0] = comb[1] = true;
-		for (int& x : num) {
-			cin >> x;
-		}
-		sum = 0;
+    fio();
+    int t; cin >> t;
+    while (t--) {
+        int n; cin >> n;
+        for (int i = 0; i < n; i++) cin >> num[i];
+        long long sum = 0;
 
-		do {
-			int a, b;
-			for (size_t i = 0; i < comb.size(); i++)
-				if (comb[i]) gcd.push_back(i);
-			a = num[gcd.back()]; gcd.pop_back();
-			b = num[gcd.back()]; gcd.pop_back();
-			sum += (a < b) ? __gcd(b, a) : __gcd(a, b);
-		} while (prev_permutation(comb.begin(), comb.end()));
-		cout << sum << '\n';
-	}
-
-	return 0;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = i+1; j < n; j++) {
+                sum += gcd(num[i], num[j]); 
+            }
+        }
+        cout << sum << '\n';
+    }
+    return 0;
 }
