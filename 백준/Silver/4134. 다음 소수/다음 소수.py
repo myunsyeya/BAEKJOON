@@ -3,9 +3,10 @@ for _ in range(T):
     N = int(input())
     if N == 0 or N == 1: N = 2
     while True:
-        if not N % 2 and N != 2: N += 1
-        elif not N % 3 and N != 3: N += 2
-        for i in range(2, int(N**0.5+1)):
+        if N != 2 and N != 3 and (N%2 == 0 or N%3 == 0):
+            N += 1
+            continue
+        for i in range(5, int(N**0.5+1)):
             if N%i == 0: break
         else: break
         N += 1
