@@ -1,4 +1,3 @@
-from bisect import bisect_left
 max_N = 1_000_000+1
 era = [1]*max_N
 era[0]=era[1]=0
@@ -12,5 +11,5 @@ for n in N:
     part = 0
     for p in prime:
         if p+p > n: break
-        if prime[bisect_left(prime, n-p)] == n-p: part+=1
+        if era[n-p]: part+=1
     print(part)
