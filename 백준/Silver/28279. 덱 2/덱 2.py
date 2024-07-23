@@ -1,11 +1,11 @@
 from collections import deque
 N, *I = map(int, open(0).read().split())
-I = deque(I)
+I.reverse()
 deq = deque()
 
 instructions = {
-    1: lambda: deq.appendleft(I.popleft()),
-    2: lambda: deq.append(I.popleft()),
+    1: lambda: deq.appendleft(I.pop()),
+    2: lambda: deq.append(I.pop()),
     3: lambda: print(deq.popleft() if deq else -1),
     4: lambda: print(deq.pop() if deq else -1),
     5: lambda: print(len(deq)),
@@ -14,4 +14,4 @@ instructions = {
     8: lambda: print(deq[-1] if deq else -1)
 }
 
-while I: instructions[I.popleft()]()
+while I: instructions[I.pop()]()
