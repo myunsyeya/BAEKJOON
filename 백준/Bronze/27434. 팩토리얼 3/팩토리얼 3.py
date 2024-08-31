@@ -1,4 +1,4 @@
+from math import factorial
 N = int(input())
-answer = 1
-while N: answer *= N; N-=1
+answer = factorial(N)
 print(answer)
