@@ -1,6 +1,5 @@
+# 도수정렬을 생각해보면, i번째 칸 이전에 가장 큰 숫자+1을 택하면 된다.
 N, *lis = map(int, open(0).read().split())
-dp = [1]*N
-for i in range(1, len(lis)):
-    for j in range(i):
-        if lis[j]<lis[i] and dp[j]+1>dp[i]: dp[i]=dp[j]+1
+dp = [0]*1001
+for i in lis: dp[i]=max(dp[:i])+1
 print(max(dp))
