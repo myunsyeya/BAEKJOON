@@ -25,7 +25,7 @@ int main()
         long long sum = 0;
         int up = mid;
 
-        for (int i = 0; i < N && level[i] < up; i++) sum += up - level[i];
+        for (int i = 0; i < N; i++) sum += max(0, up - level[i]);
         if (sum > K) right = mid-1;
         else { lb = mid; left = mid+1; }
     }
