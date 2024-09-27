@@ -1,12 +1,13 @@
 A, B, C = map(int, input().split())
-prime = []
-toB = [1]*(B+1)
+C = str(C)
+toB = [1] * (B + 1)
 answer = 0
 
-for i in range(2, B+1):
-    if toB[i]: 
-        if i >= A: prime.append(i)
-        for j in range(i, B+1, i): toB[j] = 0
-for p in prime:
-    answer += str(p).find(str(C)) != -1
+if A <= 2 <= B and '2' in C: answer += 1
+
+for i in range(3, B + 1, 2):
+    if toB[i]:
+        if i >= A and C in str(i): answer += 1
+        for j in range(i * i, B + 1, i * 2): toB[j] = 0
+
 print(answer)
