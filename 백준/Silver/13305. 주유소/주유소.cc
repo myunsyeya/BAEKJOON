@@ -9,7 +9,7 @@ int main()
 {
     fio();
     int N; cin >> N;
-    int answer = 0;
+    long long answer = 0;
     int min_price = 1e9;
     vector<int> length(N-1);
     vector<int> price(N);
@@ -18,7 +18,7 @@ int main()
 
     for (int i = 0; i < N-1; i++) {
         min_price = min(min_price, price[i]);
-        answer += min_price * length[i];
+        answer += (long long)min_price * length[i];
     }
     cout << answer;
     return 0;
