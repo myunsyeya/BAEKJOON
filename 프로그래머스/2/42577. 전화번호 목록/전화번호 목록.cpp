@@ -1,22 +1,22 @@
 #include <string>
 #include <vector>
-#include <map>
+#include <algorithm>
 #include <iostream>
-
 using namespace std;
 
-bool solution(vector<string> phone_book) {
-    map<string, int> prefix;
-    
-    for (string p : phone_book)
+bool solution(vector<string> phoneBook) {
+    bool answer = true;
+
+    sort(phoneBook.begin(), phoneBook.end());
+
+    for ( int i = 0 ; i < phoneBook.size() - 1 ; i++ )
     {
-        for (int i = p.size(); i > 0; i--)
-            prefix[p.substr(0, i)]++;
+        if ( phoneBook[i] == phoneBook[i+1].substr(0, phoneBook[i].size()) )
+        {
+            answer = false;
+            break;
+        }
     }
-    for (string p : phone_book)
-    {
-        if (prefix[p] != 1)
-            return false;
-    }
-    return true;
+
+    return answer;
 }
