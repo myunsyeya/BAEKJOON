@@ -4,11 +4,7 @@ for i in range(5, 1001, 2):
         primes.append(i)
 
 def find_three_sum(k):
-    for i in primes:
-        for j in primes:
-            z = k - i - j
-            if z in primes:
-                return f'{i} {j} {z}'
+    return next((f'{i} {j} {k - i - j}' for i in primes for j in primes if (k - i - j) in primes), 0)
 
 for _ in range(int(input())):
     print(find_three_sum(int(input())))
