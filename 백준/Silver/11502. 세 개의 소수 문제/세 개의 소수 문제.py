@@ -1,18 +1,14 @@
-prime = [2, 3]
+primes = [2, 3]
 for i in range(5, 1001, 2):
-    if any(i % p == 0 for p in prime) == False:
-        prime.append(i)
+    if all(i % p for p in primes if p * p <= i):
+        primes.append(i)
 
-def find_three_sum(K):
-    for i in prime:
-        for j in prime:
-            for k in prime:
-                if i + j + k == K:
-                    return f'{i} {j} {k}'
+def find_three_sum(k):
+    for i in primes:
+        for j in primes:
+            z = k - i - j
+            if z in primes:
+                return f'{i} {j} {z}'
 
-def testflight(T):
-    for t in range(T):
-        K = int(input())
-        print(find_three_sum(K))
-
-testflight(int(input()))
+for _ in range(int(input())):
+    print(find_three_sum(int(input())))
